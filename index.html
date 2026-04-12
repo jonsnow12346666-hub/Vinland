@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AniVibeHub ⚡</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- FLOATING KANJI BG -->
+<div class="kanji-bg" id="kanjiBg"></div>
+
+<!-- NOISE OVERLAY -->
+<div class="noise-overlay"></div>
+
+<!-- SCAN LINES -->
+<div class="scanlines"></div>
+
+<!-- MESH BACKGROUND -->
+<canvas class="mesh-canvas" id="meshCanvas"></canvas>
+
+<!-- ══════════════════════════════
+     AUTH SCREEN
+══════════════════════════════ -->
+<div class="auth-screen" id="authScreen">
+
+  <!-- GIANT BG TEXT -->
+  <div class="auth-bg-text">ANIVIBE</div>
+
+  <div class="auth-card">
+
+    <!-- CREATOR LOGO -->
+    <div class="creator-logo-wrap">
+      <div class="creator-logo">
+        <div class="cl-hexagon">
+          <div class="cl-inner">
+            <span class="cl-av">AV</span>
+            <span class="cl-sub">HUB</span>
+          </div>
+        </div>
+        <div class="cl-glow"></div>
+      </div>
+      <div class="creator-stamp">✦ CREATOR ORIGINAL ✦</div>
+    </div>
+
+    <h1 class="auth-heading">
+      <span class="ah-line1">ANI</span><span class="ah-line2">VIBE</span><span class="ah-accent">HUB</span>
+    </h1>
+    <p class="auth-tagline">// real connections. real vibes. real you.</p>
+
+    <!-- TABS -->
+    <div class="auth-tabs">
+      <button class="atab active" id="atab-login"    onclick="APP.switchForm('login')">LOGIN</button>
+      <button class="atab"        id="atab-register" onclick="APP.switchForm('register')">SIGN UP</button>
+      <div class="atab-indicator" id="atabIndicator"></div>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="loginForm" class="form-section active">
+      <div class="input-group">
+        <i class="fas fa-envelope input-icon"></i>
+        <input type="email" id="loginEmail" placeholder="Email address" class="auth-input"/>
+      </div>
+      <div class="input-group">
+        <i class="fas fa-lock input-icon"></i>
+        <input type="password" id="loginPass" placeholder="Password" class="auth-input"/>
+      </div>
+      <button class="auth-btn" onclick="APP.login()">
+        <span>ENTER THE HUB</span>
+        <i class="fas fa-arrow-right"></i>
+        <div class="btn-shine"></div>
+      </button>
+      <div id="loginError" class="auth-error"></div>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="registerForm" class="form-section">
+      <div class="av-pick-area">
+        <div class="av-pick-wrap">
+          <img id="regAvatarPreview" src="https://api.dicebear.com/8.x/adventurer/svg?seed=ultra" class="av-pick-img" alt="avatar"/>
+          <label class="av-pick-overlay">
+            <i class="fas fa-camera"></i>
+            <input type="file" accept="image/*" id="regAvatarFile" style="display:none" onchange="APP.previewAvatar(this)"/>
+          </label>
+        </div>
+        <div class="av-pick-text">
+          <span>Pick your avatar</span>
+          <small>or leave it auto-generated 🎲</small>
+        </div>
+      </div>
+      <div class="input-row">
+        <div class="input-group">
+          <i class="fas fa-user input-icon"></i>
+          <input type="text" id="regName" placeholder="Display Name" class="auth-input"/>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-at input-icon"></i>
+          <input type="text" id="regUsername" placeholder="username" class="auth-input"/>
+        </div>
+      </div>
+      <div class="input-group">
+        <i class="fas fa-envelope input-icon"></i>
+        <input type="email" id="regEmail" placeholder="Email address" class="auth-input"/>
+      </div>
+      <div class="input-group">
+        <i class="fas fa-lock input-icon"></i>
+        <input type="password" id="regPass" placeholder="Password (min 6)" class="auth-input"/>
+      </div>
+      <div class="input-group">
+        <i class="fas fa-fire input-icon"></i>
+        <input type="text" id="regBio" placeholder="Your vibe in one line..." class="auth-input"/>
+      </div>
+      <button class="auth-btn" onclick="APP.register()">
+        <span>JOIN THE HUB</span>
+        <i class="fas fa-star"></i>
+        <div class="btn-shine"></div>
+      </button>
+      <div id="regError" class="auth-error"></div>
+    </div>
+
+  </div>
+
+  <!-- FLOATING BADGES -->
+  <div class="float-badge fb1">🌸 Anime</div>
+  <div class="float-badge fb2">🎮 Gaming</div>
+  <div class="float-badge fb3">🎵 Music</div>
+  <div class="float-badge fb4">✨ Vibes</div>
+  <div class="float-badge fb5">🔥 Trends</div>
+
+</div>
+
+<!-- ══════════════════════════════
+     MAIN APP
+══════════════════════════════ -->
+<div class="app" id="mainApp" style="display:none">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+
+    <!-- LOGO -->
+    <div class="sb-brand" onclick="APP.openTab('home')">
+      <div class="sb-hex">
+        <span>AV</span>
+      </div>
+      <div class="sb-brand-text">
+        <div class="sb-title">AniVibe<em>Hub</em></div>
+        <div class="sb-sub">✦ Creator Original</div>
+      </div>
+    </div>
+
+    <!-- MY CARD -->
+    <div class="my-card" onclick="APP.openTab('profile')">
+      <div class="my-av-wrap">
+        <img id="sbAvatar" src="" alt="me" class="my-av"/>
+        <div class="my-av-ring"></div>
+        <div class="online-pip"></div>
+      </div>
+      <div class="my-info">
+        <div id="sbName" class="my-name">Loading...</div>
+        <div class="my-badge">● ONLINE</div>
+      </div>
+      <button class="logout-pill" onclick="event.stopPropagation();APP.logout()" title="Logout">
+        <i class="fas fa-power-off"></i>
+      </button>
+    </div>
+
+    <!-- NAV -->
+    <nav class="sb-nav">
+      <div class="nav-label">NAVIGATE</div>
+      <button class="nb active" id="nav-home"    onclick="APP.openTab('home')">
+        <div class="nb-icon"><i class="fas fa-house-chimney"></i></div>
+        <span>Home Feed</span>
+        <div class="nb-glow"></div>
+      </button>
+      <button class="nb" id="nav-chat" onclick="APP.openTab('chat')">
+        <div class="nb-icon"><i class="fas fa-message"></i></div>
+        <span>Messages</span>
+        <span class="nb-pip" id="msgBadge" style="display:none"></span>
+        <div class="nb-glow"></div>
+      </button>
+      <button class="nb" id="nav-groups" onclick="APP.openTab('groups')">
+        <div class="nb-icon"><i class="fas fa-users"></i></div>
+        <span>Groups</span>
+        <div class="nb-glow"></div>
+      </button>
+      <button class="nb" id="nav-calls" onclick="APP.openTab('calls')">
+        <div class="nb-icon"><i class="fas fa-phone-volume"></i></div>
+        <span>Calls</span>
+        <div class="nb-glow"></div>
+      </button>
+      <button class="nb" id="nav-explore" onclick="APP.openTab('explore')">
+        <div class="nb-icon"><i class="fas fa-compass"></i></div>
+        <span>Explore</span>
+        <div class="nb-glow"></div>
+      </button>
+      <button class="nb" id="nav-profile" onclick="APP.openTab('profile')">
+        <div class="nb-icon"><i class="fas fa-circle-user"></i></div>
+        <span>Profile</span>
+        <div class="nb-glow"></div>
+      </button>
+    </nav>
+
+    <!-- ONLINE NOW -->
+    <div class="online-section">
+      <div class="online-label">⚡ ONLINE NOW</div>
+      <div id="onlineUsersList" class="online-list"></div>
+    </div>
+
+    <!-- BOTTOM DECO -->
+    <div class="sb-deco">
+      <div class="deco-line"></div>
+      <span>v3.0 ULTRA</span>
+      <div class="deco-line"></div>
+    </div>
+
+  </aside>
+
+  <button class="hamburger" onclick="APP.toggleSidebar()"><i class="fas fa-bars"></i></button>
+  <div class="sb-overlay" id="sbOverlay" onclick="APP.closeSidebar()"></div>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ── HOME ── -->
+    <div class="tab active" id="tab-home">
+      <div class="page-header">
+        <div class="ph-left">
+          <div class="ph-tag">HOME</div>
+          <h2 class="ph-title">Your Feed <span>🌸</span></h2>
+        </div>
+        <button class="ultra-btn" onclick="APP.openModal('postModal')">
+          <i class="fas fa-plus"></i> New Post
+        </button>
+      </div>
+
+      <!-- STORIES -->
+      <div class="stories-wrap" id="storiesRow">
+        <div class="story-add-card" onclick="APP.openModal('postModal')">
+          <div class="sac-icon">＋</div>
+          <span>Your Story</span>
+        </div>
+      </div>
+
+      <div id="postsFeed" class="posts-feed">
+        <div class="ultra-loader"><div class="ul-ring"></div><p>Loading your feed...</p></div>
+      </div>
+    </div>
+
+    <!-- ── CHAT ── -->
+    <div class="tab" id="tab-chat">
+      <div class="chat-root">
+        <div class="chat-sidebar" id="chatSidebar">
+          <div class="cs-top">
+            <h3 class="cs-title">💬 Messages</h3>
+            <input class="ultra-search" id="chatSearch" placeholder="Search..." oninput="APP.filterChat()"/>
+          </div>
+          <div id="chatUsersList" class="chat-list">
+            <div class="ultra-loader"><div class="ul-ring"></div></div>
+          </div>
+        </div>
+        <div class="chat-main" id="chatMain">
+          <div class="chat-empty-state">
+            <div class="ces-emoji">💬</div>
+            <h3>No chat selected</h3>
+            <p>Pick someone from the left to start vibing</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── GROUPS ── -->
+    <div class="tab" id="tab-groups">
+      <div class="page-header">
+        <div class="ph-left">
+          <div class="ph-tag">SOCIAL</div>
+          <h2 class="ph-title">Groups <span>👥</span></h2>
+        </div>
+        <button class="ultra-btn" onclick="APP.openModal('groupModal')">
+          <i class="fas fa-plus"></i> Create
+        </button>
+      </div>
+      <div id="groupsGrid" class="groups-grid">
+        <div class="ultra-loader"><div class="ul-ring"></div><p>Loading...</p></div>
+      </div>
+    </div>
+
+    <!-- ── CALLS ── -->
+    <div class="tab" id="tab-calls">
+      <div class="page-header">
+        <div class="ph-left">
+          <div class="ph-tag">CONNECT</div>
+          <h2 class="ph-title">Make a Call <span>📞</span></h2>
+        </div>
+      </div>
+      <p class="page-sub">Tap audio or video to call anyone 🎙️</p>
+      <div id="callUsersGrid" class="call-grid">
+        <div class="ultra-loader"><div class="ul-ring"></div><p>Loading...</p></div>
+      </div>
+    </div>
+
+    <!-- ── EXPLORE ── -->
+    <div class="tab" id="tab-explore">
+      <div class="page-header">
+        <div class="ph-left">
+          <div class="ph-tag">DISCOVER</div>
+          <h2 class="ph-title">Explore <span>🔭</span></h2>
+        </div>
+      </div>
+      <input class="ultra-search" id="exploreSearch" placeholder="🔍 Search by name or @username..." oninput="APP.filterExplore()" style="margin-bottom:20px;width:100%"/>
+      <div id="exploreGrid" class="explore-grid">
+        <div class="ultra-loader"><div class="ul-ring"></div><p>Loading...</p></div>
+      </div>
+    </div>
+
+    <!-- ── PROFILE ── -->
+    <div class="tab" id="tab-profile">
+      <div class="profile-hero">
+        <div class="profile-banner" id="profileBanner">
+          <div class="banner-overlay"></div>
+          <button class="banner-change-btn" onclick="document.getElementById('bannerInput').click()">
+            <i class="fas fa-camera"></i> Change Banner
+          </button>
+          <input type="file" accept="image/*" id="bannerInput" style="display:none" onchange="APP.uploadBanner(this)"/>
+        </div>
+        <div class="profile-av-section">
+          <div class="profile-av-wrap">
+            <img id="profileAvatar" src="" alt="me" class="profile-av"/>
+            <div class="profile-av-ring"></div>
+            <label class="profile-av-change">
+              <i class="fas fa-camera"></i>
+              <input type="file" accept="image/*" id="profilePhotoInput" style="display:none" onchange="APP.changeProfilePhoto(this)"/>
+            </label>
+          </div>
+          <div class="profile-identity">
+            <h2 id="profileName">...</h2>
+            <p id="profileHandle" class="profile-handle">@...</p>
+          </div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-bio-card">
+          <p id="profileBio" class="profile-bio">...</p>
+          <div class="profile-stats">
+            <div class="pstat">
+              <span id="pStatPosts">0</span>
+              <small>Posts</small>
+            </div>
+            <div class="pstat-divider"></div>
+            <div class="pstat">
+              <span id="pStatFriends">0</span>
+              <small>Friends</small>
+            </div>
+            <div class="pstat-divider"></div>
+            <div class="pstat">
+              <span id="pStatGroups">0</span>
+              <small>Groups</small>
+            </div>
+          </div>
+          <div class="profile-action-row">
+            <button class="ultra-btn-outline" onclick="APP.openEditProfile()"><i class="fas fa-pen"></i> Edit Profile</button>
+            <button class="ultra-btn-outline" onclick="APP.changeBanner()"><i class="fas fa-image"></i> Banner</button>
+          </div>
+        </div>
+        <div class="posts-grid-label">📸 My Posts</div>
+        <div id="myPostsGrid" class="my-posts-grid"></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ══════════════════════════════
+     MODALS
+══════════════════════════════ -->
+
+<!-- POST MODAL -->
+<div class="modal-overlay" id="postModal" style="display:none" onclick="APP.closeModalOutside(event,'postModal')">
+  <div class="ultra-modal">
+    <div class="um-header">
+      <h3>✨ New Post</h3>
+      <button class="um-close" onclick="APP.closeModal('postModal')"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="um-composer">
+      <img id="postComposerAv" src="" class="uc-av" alt="me"/>
+      <div>
+        <div id="postComposerName" class="uc-name"></div>
+        <div class="uc-sub">Sharing with everyone 🌍</div>
+      </div>
+    </div>
+    <textarea id="postText" class="ultra-textarea" placeholder="What's your vibe today? ✨🌸"></textarea>
+    <div id="postMediaPreview" class="post-preview-area"></div>
+    <div class="um-attach-row">
+      <label class="ultra-chip">
+        <i class="fas fa-image"></i> Photo / Video
+        <input type="file" accept="image/*,video/*" id="postMediaFile" style="display:none" onchange="APP.previewPostMedia(this)"/>
+      </label>
+      <button class="ultra-chip" onclick="APP.toggleLinkBox()"><i class="fas fa-link"></i> App Link</button>
+    </div>
+    <input type="url" id="postLinkInput" placeholder="🔗 Paste YouTube, Spotify, App link..." class="ultra-input" style="display:none"/>
+    <button class="ultra-btn full" onclick="APP.submitPost()"><i class="fas fa-rocket"></i> Post It</button>
+  </div>
+</div>
+
+<!-- GROUP MODAL -->
+<div class="modal-overlay" id="groupModal" style="display:none" onclick="APP.closeModalOutside(event,'groupModal')">
+  <div class="ultra-modal">
+    <div class="um-header">
+      <h3>👥 Create Group</h3>
+      <button class="um-close" onclick="APP.closeModal('groupModal')"><i class="fas fa-xmark"></i></button>
+    </div>
+    <input type="text" id="newGroupName" placeholder="Group name" class="ultra-input"/>
+    <input type="text" id="newGroupDesc" placeholder="What's this group about? ✨" class="ultra-input"/>
+    <select id="newGroupTheme" class="ultra-input">
+      <option value="anime">🌸 Anime</option>
+      <option value="gaming">🎮 Gaming</option>
+      <option value="music">🎵 Music</option>
+      <option value="art">🎨 Art</option>
+      <option value="memes">😂 Memes</option>
+      <option value="study">📚 Study</option>
+      <option value="sports">⚽ Sports</option>
+      <option value="tech">💻 Tech</option>
+    </select>
+    <button class="ultra-btn full" onclick="APP.createGroup()"><i class="fas fa-star"></i> Create Group</button>
+  </div>
+</div>
+
+<!-- EDIT PROFILE MODAL -->
+<div class="modal-overlay" id="editModal" style="display:none" onclick="APP.closeModalOutside(event,'editModal')">
+  <div class="ultra-modal">
+    <div class="um-header">
+      <h3>✏️ Edit Profile</h3>
+      <button class="um-close" onclick="APP.closeModal('editModal')"><i class="fas fa-xmark"></i></button>
+    </div>
+    <input type="text" id="editName"     placeholder="Display Name" class="ultra-input"/>
+    <input type="text" id="editUsername" placeholder="@username"    class="ultra-input"/>
+    <input type="text" id="editBio"      placeholder="Your bio 🌸"  class="ultra-input"/>
+    <button class="ultra-btn full" onclick="APP.saveProfile()"><i class="fas fa-check"></i> Save Changes</button>
+  </div>
+</div>
+
+<!-- GROUP CHAT MODAL -->
+<div class="modal-overlay" id="groupChatModal" style="display:none" onclick="APP.closeModalOutside(event,'groupChatModal')">
+  <div class="ultra-modal ultra-modal-tall">
+    <div class="um-header">
+      <h3 id="groupChatTitle">Group Chat</h3>
+      <button class="um-close" onclick="APP.closeModal('groupChatModal')"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div id="groupMessages" class="group-msgs"></div>
+    <div class="um-input-row">
+      <input class="ultra-input flex1" id="groupMsgInput" placeholder="Type a message..." onkeydown="if(event.key==='Enter')APP.sendGroupMessage()"/>
+      <button class="send-btn" onclick="APP.sendGroupMessage()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- CALL MODAL -->
+<div class="modal-overlay" id="callModal" style="display:none">
+  <div class="call-modal">
+    <div class="call-bg-glow"></div>
+    <div class="call-header">
+      <div class="call-type-pill" id="callTypeLabel">📹 VIDEO CALL</div>
+    </div>
+    <div class="call-av-area">
+      <div class="call-av-ring-outer">
+        <div class="call-av-ring-inner">
+          <img id="callRemoteAv" src="" alt="user" class="call-av"/>
+        </div>
+        <svg class="call-svg-ring" viewBox="0 0 200 200">
+          <circle class="call-svg-track" cx="100" cy="100" r="90"/>
+          <circle class="call-svg-progress" cx="100" cy="100" r="90"/>
+        </svg>
+      </div>
+      <h3 id="callUserName">Calling...</h3>
+      <p id="callStatus" class="call-status">Connecting... 📡</p>
+    </div>
+    <div id="videoArea" style="display:none" class="video-area">
+      <video id="remoteVideo" autoplay playsinline class="remote-vid"></video>
+      <video id="localVideo"  autoplay playsinline muted class="local-vid"></video>
+    </div>
+    <div class="call-controls">
+      <div class="cc-group">
+        <button class="cc-btn cc-mic"  id="muteBtn"  onclick="APP.toggleMute()">  <i class="fas fa-microphone"></i></button>
+        <span class="cc-label">Mic</span>
+      </div>
+      <div class="cc-group">
+        <button class="cc-btn cc-cam"  id="camBtn"   onclick="APP.toggleCam()">   <i class="fas fa-video"></i></button>
+        <span class="cc-label">Camera</span>
+      </div>
+      <div class="cc-group">
+        <button class="cc-btn cc-end"               onclick="APP.endCall()">       <i class="fas fa-phone-slash"></i></button>
+        <span class="cc-label">End</span>
+      </div>
+      <div class="cc-group">
+        <button class="cc-btn cc-spk"  id="spkBtn"  onclick="APP.toggleSpeaker()"><i class="fas fa-volume-high"></i></button>
+        <span class="cc-label">Speaker</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INCOMING CALL -->
+<div class="incoming-call" id="incomingPopup" style="display:none">
+  <div class="ic-pulse"></div>
+  <img id="incAv" src="" alt="caller" class="ic-av"/>
+  <div class="ic-info">
+    <p id="incName" class="ic-name">Someone</p>
+    <span id="incType" class="ic-type">📹 Video Call</span>
+  </div>
+  <div class="ic-btns">
+    <button class="ic-btn ic-accept"  onclick="APP.acceptCall()"> <i class="fas fa-phone"></i></button>
+    <button class="ic-btn ic-decline" onclick="APP.declineCall()"><i class="fas fa-phone-slash"></i></button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="ultra-toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
