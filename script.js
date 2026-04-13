@@ -10,13 +10,13 @@
 // ║  → Project Settings → Your Apps → Web → Config      ║
 // ╚═══════════════════════════════════════════════════════╝
 const FIREBASE_CONFIG = {
-  apiKey:            "PASTE_YOUR_API_KEY_HERE",
-  authDomain:        "PASTE_YOUR_AUTH_DOMAIN_HERE",
-  databaseURL:       "PASTE_YOUR_DATABASE_URL_HERE",
-  projectId:         "PASTE_YOUR_PROJECT_ID_HERE",
-  storageBucket:     "PASTE_YOUR_STORAGE_BUCKET_HERE",
-  messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID_HERE",
-  appId:             "PASTE_YOUR_APP_ID_HERE"
+  apiKey:            "AIzaSyBdPtkcoq_mKWDUvuzgglsu_tMUzU6pJ-A",
+  authDomain:        "anivibehub-c6d17.firebaseapp.com",
+  databaseURL:       "https://anivibehub-c6d17-default-rtdb.firebaseio.com",
+  projectId:         "anivibehub-c6d17",
+  storageBucket:     "anivibehub-c6d17.firebasestorage.app",
+  messagingSenderId: "629029424242",
+  appId:             " 1:629029424242:web:0ad8c858af2fbc3882c6eb"
 };
 
 // ╔═══════════════════════════════════════════════════════╗
