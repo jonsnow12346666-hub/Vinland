@@ -16,7 +16,7 @@ const FIREBASE_CONFIG = {
   projectId:         "anivibehub-c6d17",
   storageBucket:     "anivibehub-c6d17.firebasestorage.app",
   messagingSenderId: "629029424242",
-  appId:             " 1:629029424242:web:0ad8c858af2fbc3882c6eb"
+  appId:             "1:629029424242:web:0ad8c858af2fbc3882c6eb"
 };
 
 // ╔═══════════════════════════════════════════════════════╗
@@ -24,8 +24,8 @@ const FIREBASE_CONFIG = {
 // ║  Go to: cloudinary.com → Dashboard                   ║
 // ║  Preset: Settings → Upload → Add Preset → Unsigned   ║
 // ╚═══════════════════════════════════════════════════════╝
-const CLOUD_NAME   = "PASTE_YOUR_CLOUD_NAME_HERE";
-const CLOUD_PRESET = "PASTE_YOUR_UPLOAD_PRESET_HERE";
+const CLOUD_NAME   = "dinzdtjjt";
+const CLOUD_PRESET = "anivibe_upload";
 
 // ═══════════════════════════════════════════════════════
 //   LOAD FIREBASE
