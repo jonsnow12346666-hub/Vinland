@@ -1,0 +1,334 @@
+"<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+<meta charset=\"UTF-8\" />
+<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" />
+<meta name=\"theme-color\" content=\"#0b0014\" />
+<title>Vinland — Anime Social Hub</title>
+<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">
+<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>
+<link href=\"https://fonts.googleapis.com/css2?family=Zen+Dots&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap\" rel=\"stylesheet\">
+<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css\" />
+<link rel=\"stylesheet\" href=\"style.css\" />
+</head>
+<body>
+
+<!-- ANIMATED BG -->
+<div class=\"bg-orb orb-1\"></div>
+<div class=\"bg-orb orb-2\"></div>
+<div class=\"bg-orb orb-3\"></div>
+<div class=\"bg-grain\"></div>
+
+<!-- ================= SPLASH ================= -->
+<section id=\"splash\" class=\"screen active\" data-testid=\"splash-screen\">
+  <div class=\"splash-core\">
+    <div class=\"logo-mark\">
+      <span class=\"ring\"></span>
+      <span class=\"ring r2\"></span>
+      <div class=\"v-letter\">V</div>
+    </div>
+    <h1 class=\"brand-title\">VINLAND</h1>
+    <p class=\"brand-sub\">the anime social hub</p>
+    <div class=\"loader-bar\"><span></span></div>
+  </div>
+</section>
+
+<!-- ================= AUTH ================= -->
+<section id=\"auth\" class=\"screen\" data-testid=\"auth-screen\">
+  <div class=\"auth-shell glass\">
+    <div class=\"auth-head\">
+      <div class=\"logo-mini\"><span>V</span></div>
+      <h2 id=\"auth-title\">welcome back</h2>
+      <p id=\"auth-sub\">log into your anime world</p>
+    </div>
+
+    <div class=\"tabs\">
+      <button class=\"tab active\" data-tab=\"login\" data-testid=\"tab-login\">Login</button>
+      <button class=\"tab\" data-tab=\"signup\" data-testid=\"tab-signup\">Sign up</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <form id=\"login-form\" class=\"auth-form active\" data-testid=\"login-form\">
+      <div class=\"field\"><i class=\"fa-regular fa-envelope\"></i><input type=\"email\" id=\"login-email\" placeholder=\"email\" required data-testid=\"login-email-input\"/></div>
+      <div class=\"field\"><i class=\"fa-solid fa-lock\"></i><input type=\"password\" id=\"login-password\" placeholder=\"password\" required data-testid=\"login-password-input\"/></div>
+      <button type=\"submit\" class=\"btn-primary\" data-testid=\"login-submit-btn\"><span>Enter Vinland</span><i class=\"fa-solid fa-arrow-right\"></i></button>
+      <button type=\"button\" id=\"forgot-btn\" class=\"link-btn\" data-testid=\"forgot-password-btn\">forgot password?</button>
+    </form>
+
+    <!-- SIGNUP FORM -->
+    <form id=\"signup-form\" class=\"auth-form\" data-testid=\"signup-form\">
+      <div class=\"field\"><i class=\"fa-regular fa-user\"></i><input type=\"text\" id=\"signup-name\" placeholder=\"display name\" required data-testid=\"signup-name-input\"/></div>
+      <div class=\"field\"><i class=\"fa-regular fa-envelope\"></i><input type=\"email\" id=\"signup-email\" placeholder=\"email\" required data-testid=\"signup-email-input\"/></div>
+      <div class=\"field\"><i class=\"fa-solid fa-lock\"></i><input type=\"password\" id=\"signup-password\" placeholder=\"password (min 6)\" minlength=\"6\" required data-testid=\"signup-password-input\"/></div>
+      <button type=\"submit\" class=\"btn-primary\" data-testid=\"signup-submit-btn\"><span>Create profile</span><i class=\"fa-solid fa-sparkles\"></i></button>
+    </form>
+
+    <div class=\"divider\"><span>or continue with</span></div>
+    <button id=\"google-btn\" class=\"btn-google\" data-testid=\"google-auth-btn\">
+      <svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\"><path fill=\"#FFC107\" d=\"M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 20-8 20-20 0-1.2-.1-2.3-.4-3.5z\"/><path fill=\"#FF3D00\" d=\"M6.3 14.7l6.6 4.8C14.6 16 19 12.5 24 12.5c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 16.1 4 9.3 8.3 6.3 14.7z\"/><path fill=\"#4CAF50\" d=\"M24 44c5.2 0 10-2 13.5-5.2l-6.2-5.2C29.2 35 26.7 36 24 36c-5.2 0-9.7-3.3-11.3-8l-6.5 5C9.2 39.6 16 44 24 44z\"/><path fill=\"#1976D2\" d=\"M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.1 4.1-3.8 5.5l6.2 5.2C41.9 35.8 44 30.4 44 24c0-1.2-.1-2.3-.4-3.5z\"/></svg>
+      <span>Sign in with Google</span>
+    </button>
+    <p id=\"auth-msg\" class=\"auth-msg\" data-testid=\"auth-error-msg\"></p>
+    <p class=\"creator-tag\">by <span class=\"creator-badge\"><i class=\"fa-solid fa-crown\"></i> CEO</span></p>
+  </div>
+</section>
+
+<!-- ================= MAIN APP ================= -->
+<section id=\"app\" class=\"screen\" data-testid=\"app-screen\">
+
+  <!-- TOPBAR -->
+  <header class=\"topbar glass\">
+    <div class=\"brand-pill\"><span class=\"dot\"></span> vinland</div>
+    <div class=\"top-actions\">
+      <button id=\"notif-btn\" class=\"icon-btn\" data-testid=\"notifications-btn\"><i class=\"fa-regular fa-bell\"></i><span id=\"notif-badge\" class=\"badge\" hidden></span></button>
+      <button id=\"menu-btn\" class=\"icon-btn\" data-testid=\"menu-btn\"><i class=\"fa-solid fa-ellipsis-vertical\"></i></button>
+    </div>
+  </header>
+
+  <!-- MENU DROPDOWN -->
+  <div id=\"menu-drop\" class=\"menu-drop glass\" hidden>
+    <button data-page=\"faq\" data-testid=\"menu-faq\"><i class=\"fa-regular fa-circle-question\"></i> FAQs</button>
+    <button data-page=\"privacy\" data-testid=\"menu-privacy\"><i class=\"fa-solid fa-shield-halved\"></i> Privacy Policy</button>
+    <button data-page=\"about\" data-testid=\"menu-about\"><i class=\"fa-regular fa-circle-info\"></i> About Vinland</button>
+    <button data-page=\"terms\" data-testid=\"menu-terms\"><i class=\"fa-regular fa-file-lines\"></i> Terms of Service</button>
+    <button id=\"logout-btn\" class=\"danger\" data-testid=\"logout-btn\"><i class=\"fa-solid fa-arrow-right-from-bracket\"></i> Logout</button>
+  </div>
+
+  <!-- MAIN VIEW -->
+  <main id=\"view\" class=\"view\">
+
+    <!-- HOME -->
+    <div class=\"page home-page active\" data-page-panel=\"home\">
+      <!-- Stories row -->
+      <div class=\"section-head\"><h3>stories</h3><button id=\"add-story-btn\" class=\"chip\" data-testid=\"add-story-btn\"><i class=\"fa-solid fa-plus\"></i> new</button></div>
+      <div id=\"stories-row\" class=\"stories-row\"></div>
+
+      <!-- Hero slider -->
+      <div class=\"section-head\"><h3>discover</h3><div class=\"filter-chips\" id=\"filter-chips\">
+        <button class=\"chip active\" data-filter=\"all\" data-testid=\"filter-all\">all</button>
+        <button class=\"chip\" data-filter=\"female\" data-testid=\"filter-female\">women</button>
+        <button class=\"chip\" data-filter=\"male\" data-testid=\"filter-male\">men</button>
+        <button class=\"chip\" data-filter=\"online\" data-testid=\"filter-online\">online</button>
+      </div></div>
+      <input id=\"search-country\" type=\"text\" placeholder=\"filter by country...\" class=\"search-input\" data-testid=\"search-country-input\" />
+
+      <div id=\"user-slider\" class=\"user-slider\"></div>
+
+      <!-- Random call cta -->
+      <div class=\"random-cta\">
+        <button id=\"random-video-btn\" class=\"cta-card grad-1\" data-testid=\"random-video-btn\"><i class=\"fa-solid fa-video\"></i><span>random video</span></button>
+        <button id=\"random-audio-btn\" class=\"cta-card grad-2\" data-testid=\"random-audio-btn\"><i class=\"fa-solid fa-phone\"></i><span>random audio</span></button>
+      </div>
+    </div>
+
+    <!-- CHATS -->
+    <div class=\"page\" data-page-panel=\"chats\">
+      <div class=\"section-head\"><h3>chats</h3><button id=\"new-group-btn\" class=\"chip\" data-testid=\"new-group-btn\"><i class=\"fa-solid fa-users\"></i> new group</button></div>
+      <div class=\"segmented\">
+        <button class=\"seg active\" data-seg=\"private\" data-testid=\"seg-private\">private</button>
+        <button class=\"seg\" data-seg=\"group\" data-testid=\"seg-group\">groups</button>
+      </div>
+      <div id=\"chat-list\" class=\"chat-list\"></div>
+    </div>
+
+    <!-- PROFILE -->
+    <div class=\"page\" data-page-panel=\"profile\">
+      <div class=\"profile-hero\">
+        <label class=\"avatar-big\" for=\"avatar-upload\" data-testid=\"avatar-upload-label\">
+          <img id=\"profile-avatar\" src=\"\" alt=\"\" />
+          <div class=\"avatar-edit\"><i class=\"fa-solid fa-camera\"></i></div>
+        </label>
+        <input type=\"file\" id=\"avatar-upload\" accept=\"image/*\" hidden data-testid=\"avatar-upload-input\"/>
+        <h2 id=\"profile-name\">—</h2>
+        <p id=\"profile-email\" class=\"muted\">—</p>
+        <span id=\"verified-badge\" class=\"verified\" hidden><i class=\"fa-solid fa-crown\"></i> CEO verified</span>
+      </div>
+
+      <div class=\"profile-form glass\">
+        <div class=\"two-col\">
+          <div class=\"field-sm\"><label>bio</label><input type=\"text\" id=\"pf-bio\" placeholder=\"tell the world...\" data-testid=\"profile-bio-input\"/></div>
+          <div class=\"field-sm\"><label>age</label><input type=\"number\" id=\"pf-age\" min=\"13\" max=\"99\" data-testid=\"profile-age-input\"/></div>
+        </div>
+        <div class=\"two-col\">
+          <div class=\"field-sm\"><label>gender</label>
+            <select id=\"pf-gender\" data-testid=\"profile-gender-select\">
+              <option value=\"\">—</option><option value=\"female\">female</option><option value=\"male\">male</option><option value=\"other\">other</option>
+            </select>
+          </div>
+          <div class=\"field-sm\"><label>country</label><input type=\"text\" id=\"pf-country\" placeholder=\"Japan\" data-testid=\"profile-country-input\"/></div>
+        </div>
+        <div class=\"field-sm\"><label>favorite anime</label><input type=\"text\" id=\"pf-anime\" placeholder=\"Vinland Saga, Naruto...\" data-testid=\"profile-anime-input\"/></div>
+        <div class=\"field-sm\"><label>hobbies</label><input type=\"text\" id=\"pf-hobbies\" placeholder=\"drawing, gaming...\" data-testid=\"profile-hobbies-input\"/></div>
+
+        <h4 class=\"mini-h\">socials</h4>
+        <div class=\"socials-grid\">
+          <div class=\"field-sm\"><i class=\"fa-brands fa-instagram\"></i><input id=\"pf-ig\" placeholder=\"instagram\"/></div>
+          <div class=\"field-sm\"><i class=\"fa-brands fa-telegram\"></i><input id=\"pf-tg\" placeholder=\"telegram\"/></div>
+          <div class=\"field-sm\"><i class=\"fa-brands fa-facebook\"></i><input id=\"pf-fb\" placeholder=\"facebook\"/></div>
+          <div class=\"field-sm\"><i class=\"fa-brands fa-snapchat\"></i><input id=\"pf-sc\" placeholder=\"snapchat\"/></div>
+        </div>
+
+        <button id=\"save-profile-btn\" class=\"btn-primary\" data-testid=\"save-profile-btn\"><span>save profile</span><i class=\"fa-solid fa-check\"></i></button>
+      </div>
+
+      <div class=\"profile-lists\">
+        <div class=\"list-card glass\">
+          <h4><i class=\"fa-solid fa-heart\"></i> favorites</h4>
+          <div id=\"fav-list\" class=\"mini-list\"></div>
+        </div>
+        <div class=\"list-card glass\">
+          <h4><i class=\"fa-solid fa-ban\"></i> blacklist</h4>
+          <div id=\"black-list\" class=\"mini-list\"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INFO PAGES -->
+    <div class=\"page info-page\" data-page-panel=\"faq\">
+      <h2>FAQs</h2>
+      <div class=\"qa\"><h4>How do I start chatting?</h4><p>Create a profile, tap any user card on the home page, and start a private chat.</p></div>
+      <div class=\"qa\"><h4>Are my messages saved?</h4><p>Yes — every message is saved in Firestore and cannot be deleted, keeping chats transparent.</p></div>
+      <div class=\"qa\"><h4>How does random call work?</h4><p>Tap the random video/audio button — we pair you with a random online user via WebRTC.</p></div>
+      <div class=\"qa\"><h4>Can I block users?</h4><p>Yes — open any profile and tap the block icon. Blocked users cannot message you.</p></div>
+    </div>
+    <div class=\"page info-page\" data-page-panel=\"privacy\">
+      <h2>Privacy Policy</h2>
+      <p>We store your profile, messages, and media in Firebase/Cloudinary. Uploads are validated. We do not sell your data. You may request account deletion at any time via support.</p>
+      <p>Analytics are anonymous. Third-parties: Google Firebase, Cloudinary media CDN.</p>
+    </div>
+    <div class=\"page info-page\" data-page-panel=\"about\">
+      <h2>About Vinland</h2>
+      <p>Vinland is an aesthetic Gen-Z anime social hub built for real connections — private chats, group rooms, random video calls, and 24-hour stories with that pure anime vibe.</p>
+      <p class=\"creator-tag\">crafted by <span class=\"creator-badge\"><i class=\"fa-solid fa-crown\"></i> CEO</span></p>
+    </div>
+    <div class=\"page info-page\" data-page-panel=\"terms\">
+      <h2>Terms of Service</h2>
+      <p>By using Vinland you agree to treat others with respect. No harassment, NSFW, spam, or illegal content. Violations result in permanent bans. All chats are logged.</p>
+    </div>
+
+    <!-- CHAT ROOM (slides over) -->
+    <div class=\"page chat-room\" data-page-panel=\"chatroom\">
+      <header class=\"chat-header\">
+        <button id=\"chat-back\" class=\"icon-btn\" data-testid=\"chat-back-btn\"><i class=\"fa-solid fa-arrow-left\"></i></button>
+        <img id=\"chat-avatar\" src=\"\" alt=\"\" />
+        <div>
+          <h4 id=\"chat-title\">—</h4>
+          <span id=\"chat-status\" class=\"muted\">offline</span>
+        </div>
+        <div class=\"chat-actions\">
+          <button id=\"call-audio-btn\" class=\"icon-btn\" data-testid=\"call-audio-btn\"><i class=\"fa-solid fa-phone\"></i></button>
+          <button id=\"call-video-btn\" class=\"icon-btn\" data-testid=\"call-video-btn\"><i class=\"fa-solid fa-video\"></i></button>
+          <button id=\"chat-opt-btn\" class=\"icon-btn\" data-testid=\"chat-opt-btn\"><i class=\"fa-solid fa-ellipsis-vertical\"></i></button>
+        </div>
+      </header>
+
+      <div id=\"chat-opts\" class=\"chat-opts glass\" hidden>
+        <button id=\"block-user-btn\" data-testid=\"block-user-btn\"><i class=\"fa-solid fa-ban\"></i> block</button>
+        <button id=\"fav-user-btn\" data-testid=\"fav-user-btn\"><i class=\"fa-solid fa-heart\"></i> favorite</button>
+        <button id=\"report-user-btn\" data-testid=\"report-user-btn\"><i class=\"fa-solid fa-flag\"></i> report</button>
+      </div>
+
+      <div id=\"messages\" class=\"messages\"></div>
+
+      <div id=\"typing-indicator\" class=\"typing\" hidden><span></span><span></span><span></span></div>
+
+      <div id=\"reply-preview\" class=\"reply-preview\" hidden>
+        <div><b id=\"reply-name\"></b><p id=\"reply-text\"></p></div>
+        <button id=\"reply-cancel\"><i class=\"fa-solid fa-xmark\"></i></button>
+      </div>
+
+      <form id=\"msg-form\" class=\"msg-bar glass\">
+        <button type=\"button\" id=\"emoji-btn\" class=\"icon-btn\" data-testid=\"emoji-btn\"><i class=\"fa-regular fa-face-smile\"></i></button>
+        <button type=\"button\" id=\"attach-btn\" class=\"icon-btn\" data-testid=\"attach-btn\"><i class=\"fa-solid fa-paperclip\"></i></button>
+        <input type=\"file\" id=\"attach-input\" accept=\"image/*,video/*\" hidden />
+        <input id=\"msg-input\" type=\"text\" placeholder=\"type something...\" autocomplete=\"off\" data-testid=\"msg-input\"/>
+        <button type=\"button\" id=\"voice-btn\" class=\"icon-btn\" data-testid=\"voice-btn\"><i class=\"fa-solid fa-microphone\"></i></button>
+        <button type=\"submit\" class=\"send-btn\" data-testid=\"send-msg-btn\"><i class=\"fa-solid fa-paper-plane\"></i></button>
+      </form>
+
+      <div id=\"emoji-panel\" class=\"emoji-panel glass\" hidden></div>
+    </div>
+
+  </main>
+
+  <!-- BOTTOM NAV -->
+  <nav class=\"bottom-nav glass\">
+    <button class=\"nav-btn active\" data-page=\"home\" data-testid=\"nav-home\"><i class=\"fa-solid fa-house\"></i><span>home</span></button>
+    <button class=\"nav-btn\" data-page=\"chats\" data-testid=\"nav-chats\"><i class=\"fa-regular fa-comments\"></i><span>chats</span><span id=\"unread-badge\" class=\"badge\" hidden></span></button>
+    <button class=\"nav-btn\" data-page=\"profile\" data-testid=\"nav-profile\"><i class=\"fa-regular fa-user\"></i><span>profile</span></button>
+  </nav>
+</section>
+
+<!-- ================ MODALS ================= -->
+
+<!-- USER PREVIEW -->
+<div id=\"user-modal\" class=\"modal\" hidden data-testid=\"user-modal\">
+  <div class=\"modal-card glass\">
+    <button class=\"modal-close\" data-close data-testid=\"user-modal-close\"><i class=\"fa-solid fa-xmark\"></i></button>
+    <img id=\"um-avatar\" src=\"\" class=\"um-avatar\"/>
+    <h2 id=\"um-name\">—</h2>
+    <p id=\"um-bio\" class=\"muted\">—</p>
+    <div class=\"um-meta\"><span id=\"um-gender\"></span><span id=\"um-country\"></span><span id=\"um-age\"></span></div>
+    <p id=\"um-anime\" class=\"um-line\"></p>
+    <div class=\"um-socials\" id=\"um-socials\"></div>
+    <div class=\"um-actions\">
+      <button id=\"um-chat\" class=\"btn-primary\" data-testid=\"um-chat-btn\"><i class=\"fa-regular fa-comment\"></i> chat</button>
+      <button id=\"um-video\" class=\"btn-ghost\" data-testid=\"um-video-btn\"><i class=\"fa-solid fa-video\"></i></button>
+      <button id=\"um-audio\" class=\"btn-ghost\" data-testid=\"um-audio-btn\"><i class=\"fa-solid fa-phone\"></i></button>
+      <button id=\"um-fav\" class=\"btn-ghost\" data-testid=\"um-fav-btn\"><i class=\"fa-solid fa-heart\"></i></button>
+      <button id=\"um-block\" class=\"btn-ghost danger\" data-testid=\"um-block-btn\"><i class=\"fa-solid fa-ban\"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- STORY VIEWER -->
+<div id=\"story-viewer\" class=\"modal fullblack\" hidden data-testid=\"story-viewer\">
+  <div class=\"story-top\">
+    <div class=\"story-bar\"><span id=\"story-progress\"></span></div>
+    <div class=\"story-user\"><img id=\"story-user-avatar\" src=\"\"/><span id=\"story-user-name\"></span></div>
+    <button class=\"modal-close\" data-close><i class=\"fa-solid fa-xmark\"></i></button>
+  </div>
+  <div class=\"story-media\" id=\"story-media\"></div>
+  <button id=\"story-viewers-btn\" class=\"story-viewers\"><i class=\"fa-regular fa-eye\"></i> <span id=\"story-viewers-count\">0</span></button>
+</div>
+
+<!-- CALL SCREEN -->
+<div id=\"call-screen\" class=\"modal fullblack\" hidden data-testid=\"call-screen\">
+  <video id=\"remote-video\" autoplay playsinline></video>
+  <video id=\"local-video\" autoplay playsinline muted></video>
+  <div class=\"call-info\">
+    <h3 id=\"call-name\">connecting...</h3>
+    <p id=\"call-status\" class=\"muted\">ringing</p>
+  </div>
+  <div class=\"call-controls\">
+    <button id=\"toggle-mic\" class=\"call-btn\" data-testid=\"toggle-mic-btn\"><i class=\"fa-solid fa-microphone\"></i></button>
+    <button id=\"toggle-cam\" class=\"call-btn\" data-testid=\"toggle-cam-btn\"><i class=\"fa-solid fa-video\"></i></button>
+    <button id=\"toggle-speaker\" class=\"call-btn\" data-testid=\"toggle-speaker-btn\"><i class=\"fa-solid fa-volume-high\"></i></button>
+    <button id=\"end-call\" class=\"call-btn hang\" data-testid=\"end-call-btn\"><i class=\"fa-solid fa-phone-slash\"></i></button>
+  </div>
+</div>
+
+<!-- INCOMING CALL -->
+<div id=\"incoming-call\" class=\"modal\" hidden data-testid=\"incoming-call\">
+  <div class=\"modal-card glass incoming\">
+    <img id=\"inc-avatar\" src=\"\"/>
+    <h3 id=\"inc-name\">—</h3>
+    <p class=\"muted\" id=\"inc-type\">incoming call</p>
+    <div class=\"incoming-actions\">
+      <button id=\"accept-call\" class=\"call-btn accept\" data-testid=\"accept-call-btn\"><i class=\"fa-solid fa-phone\"></i></button>
+      <button id=\"decline-call\" class=\"call-btn hang\" data-testid=\"decline-call-btn\"><i class=\"fa-solid fa-phone-slash\"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id=\"toast\" class=\"toast\" hidden data-testid=\"toast\"></div>
+
+<!-- FOOTER CREATOR -->
+<div class=\"creator-float\">by <span class=\"creator-badge\"><i class=\"fa-solid fa-crown\"></i> CEO</span></div>
+
+<!-- FIREBASE MODULES -->
+<script type=\"module\" src=\"script.js\"></script>
+</body>
+</html>
+"
