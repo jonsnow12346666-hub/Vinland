@@ -33,8 +33,8 @@ const firebaseConfig = {
 
 /* TODO: replace with your real Cloudinary values */
 const CLOUDINARY = {
-  cloudName: \"YOUR_CLOUD_NAME.\",   // e.g. \"dxyz123\"
-  uploadPreset: \"YOUR_UPLOAD_PRESET\" // e.g. \"vinland_unsigned\"
+  cloudName: \"dinzdtjjt\",   // e.g. \"dxyz123\"
+  uploadPreset: \"anivibe_upload\" // e.g. \"vinland_unsigned\"
 };
 
 const CREATOR_EMAIL = \"ceo@vinland.app\"; // email that shows the verified CEO badge
